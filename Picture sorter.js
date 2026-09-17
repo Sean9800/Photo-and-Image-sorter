@@ -176,10 +176,10 @@ function averageBrightness(pixels) {
   return sum / pixels.length;
 }
 
-// 64-bit avergae hash; 1 bit per pixel, set if brighter than the mean
+// 64-bit average hash; 1 bit per pixel, set if brighter than the mean
 function averageHash(pixels) {
   let sum = 0;
-  for (let i = 0; i, pixels.lenght; i++) sum += pixels[i];
+  for (let i = 0; i < pixels.length; i++) sum += pixels[i];
   const mean = sum / pixels.length;
   let hash = 0n;
   for (let i = 0; i < pixels.length; i++) {
@@ -199,24 +199,24 @@ function hammingDistance(a, b) {
 }
 
 //
-//Mian pipeline
+// Main pipeline
 //
 async function main() {
   const args = parseArgs(process.argv);
- 
+
   const imageExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
   const files = fs
     .readdirSync(args.input)
     .filter((f) => imageExtensions.has(path.extname(f).toLowerCase()))
     .sort(naturalCompare);
- 
+
   if (files.length === 0) {
     console.error(`No images found in ${args.input}`);
     process.exit(1);
   }
- 
+
   console.log(`Found ${files.length} frames. Analyzing...`);
- 
+
   const analyzed = [];
   for (let i = 0; i < files.length; i++) {
     const filePath = path.join(args.input, files[i]);
@@ -230,21 +230,21 @@ async function main() {
       process.stdout.write(`\r  scored ${i + 1}/${files.length}`);
     }
   }
-}
-console.log();
 
-// --- Step 1: pick the best frame from each consecutive window -----------
-const candidates = [];
+  console.log();
+
+  // --- Step 1: pick the best frame from each consecutive window -----------
+  const candidates = [];
   for (let i = 0; i < analyzed.length; i += args.groupSize) {
     const window = analyzed.slice(i, i + args.groupSize);
     const wellExposed = window.filter(
       (f) => f.brightness >= args.minBrightness && f.brightness <= args.maxBrightness
     );
-    const pool = wellExposed.length > 0 ? wellExposed : window; // fall back if a whole window is badly lit
+    const pool = wellExposed.length > 0 ? wellExposed : window;
     const best = pool.reduce((a, b) => (b.sharpness > a.sharpness ? b : a));
     candidates.push(best);
   }
- 
+
   // --- Step 2: drop near-duplicates among the candidates -------------------
   const kept = [];
   for (const candidate of candidates) {
@@ -254,10 +254,10 @@ const candidates = [];
     if (dupIndex === -1) {
       kept.push(candidate);
     } else if (candidate.sharpness > kept[dupIndex].sharpness) {
-      kept[dupIndex] = candidate; // replace with the sharper of the two duplicates
+      kept[dupIndex] = candidate;
     }
   }
- 
+
   // --- Step 3: copy winners to the output folder ----------------------------
   fs.mkdirSync(args.output, { recursive: true });
   for (const winner of kept) {
@@ -266,7 +266,7 @@ const candidates = [];
       path.join(args.output, winner.file)
     );
   }
- 
+
   // --- Step 4: write a JSON report ------------------------------------------
   const reportPath = args.report || path.join(args.output, "report.json");
   const report = {
@@ -288,16 +288,16 @@ const candidates = [];
       })),
   };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-  
+
   console.log(`\nDone.`);
   console.log(`  Scanned:       ${files.length} frames`);
   console.log(`  Windows:       ${candidates.length} (one best pick per window)`);
   console.log(`  Kept:          ${kept.length} after removing near-duplicates`);
   console.log(`  Copied to:     ${args.output}`);
   console.log(`  Report:        ${reportPath}`);
+}
 
-
-  main().catch((err) => {
+main().catch((err) => {
   console.error("Fatal error:", err);
   process.exit(1);
 });

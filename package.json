@@ -1,0 +1,13 @@
+{
+  "name": "photo-and-image-sorter",
+  "version": "1.0.0",
+  "description": "Scores extracted video frames for sharpness and exposure, and auto-selects the best, non-duplicate shots.",
+  "main": "Picture sorter.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node \"Picture sorter.js\""
+  },
+  "dependencies": {
+    "sharp": "^0.33.0"
+  }
+}
