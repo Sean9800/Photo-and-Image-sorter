@@ -1,0 +1,63 @@
+{
+  "totalFramesScanned": 413,
+  "windowsEvaluated": 21,
+  "framesKeptAfterDedupe": 10,
+  "settings": {
+    "groupSize": 20,
+    "minBrightness": 25,
+    "maxBrightness": 230,
+    "dedupeDistance": 6
+  },
+  "selected": [
+    {
+      "file": "photo  (55).jpg",
+      "sharpness": 2030.37,
+      "brightness": 122.16
+    },
+    {
+      "file": "photo  (87).jpg",
+      "sharpness": 4277.76,
+      "brightness": 126.82
+    },
+    {
+      "file": "photo  (101).jpg",
+      "sharpness": 2185.35,
+      "brightness": 124.23
+    },
+    {
+      "file": "photo  (141).jpg",
+      "sharpness": 1396.42,
+      "brightness": 115.26
+    },
+    {
+      "file": "photo  (182).jpg",
+      "sharpness": 2871.92,
+      "brightness": 131.33
+    },
+    {
+      "file": "photo  (211).jpg",
+      "sharpness": 2047.04,
+      "brightness": 123.83
+    },
+    {
+      "file": "photo  (232).jpg",
+      "sharpness": 1509.31,
+      "brightness": 122.08
+    },
+    {
+      "file": "photo  (261).jpg",
+      "sharpness": 1531.58,
+      "brightness": 121.75
+    },
+    {
+      "file": "photo  (311).jpg",
+      "sharpness": 1785.86,
+      "brightness": 125.11
+    },
+    {
+      "file": "photo  (352).jpg",
+      "sharpness": 1720.49,
+      "brightness": 120.42
+    }
+  ]
+}

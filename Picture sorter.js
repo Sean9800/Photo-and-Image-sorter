@@ -123,7 +123,7 @@ async function analyzeImage(filePath) {
   // Grayscale, downscaled raw pixel buffer for sharpness = brightness
   const { data, info } = await sharp(filePath)
   .resize({ width: ANALYZE_WITH, withoutEnlargement: true})
-  .trayscale()
+  .grayscale()
   .raw()
   .toBuffer({ resolveWithObject: true });
 
